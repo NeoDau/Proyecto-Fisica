@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fisica</title>
+        <link rel="stylesheet" href="./styles/style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    </head>
+    <body>
+        <h1>Proyecto Fisica</h1>
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+    </body>
+    <script>
+        const xValues = [50,60,70,80,90,100,110,120,130,140];
+        const yValues = [3, 6, 12, 13, 27, 6, 35, 31, 22, 10];
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                scales: {
+                yAxes: [{ticks: {min: 1, max:50}}],
+            }
+        }
+    });
+    </script>
+</html>
