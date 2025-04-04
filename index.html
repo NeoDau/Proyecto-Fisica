@@ -9,13 +9,19 @@
     </head>
     <body>
         <h1>Proyecto Fisica</h1>
+
+        <label for="equation">Ingrese una ecuación en función de x (ej: 0.1*x*x - 5):</label>
+        <input type="text" id="equation" placeholder="Ej: 0.1*x*x - 5">
+        <button onclick="updateChart()">Graficar</button>
+        <br>
         <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
     </body>
     <script>
-        const xValues = [50,60,70,80,90,100,110,120,130,140];
-        const yValues = [3, 6, 12, 13, 27, 6, 35, 31, 22, 10];
+        let xValues = [50,60,70,80,90,100,110,120,130,140];
+        let yValues = [];
 
-        new Chart("myChart", {
+        // Guardamos la instancia del gráfico en una variable global
+        let chart = new Chart("myChart", {
             type: "line",
             data: {
                 labels: xValues,
@@ -23,16 +29,32 @@
                     fill: false,
                     lineTension: 0,
                     backgroundColor: "rgba(0,0,255,1.0)",
-                    borderColor: "rgba(0,0,255,0.1)",
+                    borderColor: "rgba(0,0,255,0.8)",
                     data: yValues
                 }]
             },
             options: {
-                legend: {display: false},
+                legend: { display: false },
                 scales: {
-                yAxes: [{ticks: {min: 1, max:50}}],
+                    yAxes: [{ ticks: { beginAtZero: false } }]
+                }
+            }
+        });
+
+         // Función para actualizar el gráfico con la ecuación ingresada
+         function updateChart() {
+            let equation = document.getElementById("equation").value;
+
+            try {
+                // Evaluamos la ecuación y generamos los valores de Y
+                yValues = xValues.map(x => eval(equation));
+
+                // Actualizamos el gráfico
+                chart.data.datasets[0].data = yValues;
+                chart.update();
+            } catch (error) {
+                alert("Error en la ecuación. Verifique la sintaxis.");
             }
         }
-    });
     </script>
 </html>
